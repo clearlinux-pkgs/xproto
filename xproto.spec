@@ -4,7 +4,7 @@
 #
 Name     : xproto
 Version  : 7.0.28
-Release  : 4
+Release  : 5
 URL      : http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.28.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.28.tar.gz
 Summary  : Xproto headers
