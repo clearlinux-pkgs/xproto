@@ -4,7 +4,7 @@
 #
 Name     : xproto
 Version  : 7.0.31
-Release  : 9
+Release  : 10
 URL      : http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.31.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.31.tar.gz
 Summary  : Xproto headers
@@ -87,7 +87,7 @@ rm -rf %{buildroot}
 /usr/include/X11/ap_keysym.h
 /usr/include/X11/keysym.h
 /usr/include/X11/keysymdef.h
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/pkgconfig/xproto.pc
 
 %files doc
 %defattr(-,root,root,-)
