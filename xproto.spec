@@ -4,14 +4,20 @@
 #
 Name     : xproto
 Version  : 7.0.31
-Release  : 10
+Release  : 11
 URL      : http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.31.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.31.tar.gz
 Summary  : Xproto headers
 Group    : Development/Tools
 License  : MIT
 Requires: xproto-doc
+BuildRequires : gcc-dev32
+BuildRequires : gcc-libgcc32
+BuildRequires : gcc-libstdc++32
+BuildRequires : glibc-dev32
+BuildRequires : glibc-libc32
 BuildRequires : libxslt-bin
+BuildRequires : pkgconfig(32xorg-macros)
 BuildRequires : pkgconfig(xorg-macros)
 BuildRequires : xmlto
 
@@ -29,6 +35,14 @@ Provides: xproto-devel
 dev components for the xproto package.
 
 
+%package dev32
+Summary: dev32 components for the xproto package.
+Group: Default
+
+%description dev32
+dev32 components for the xproto package.
+
+
 %package doc
 Summary: doc components for the xproto package.
 Group: Documentation
@@ -39,12 +53,21 @@ doc components for the xproto package.
 
 %prep
 %setup -q -n xproto-7.0.31
+pushd ..
+cp -a xproto-7.0.31 build32
+popd
 
 %build
 export LANG=C
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
+pushd ../build32
+export CFLAGS="$CFLAGS -m32"
+export CXXFLAGS="$CXXFLAGS -m32"
+%configure --disable-static  --libdir=/usr/lib32
+make V=1  %{?_smp_mflags}
+popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
@@ -54,6 +77,15 @@ make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
 rm -rf %{buildroot}
+pushd ../build32
+%make_install32
+if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
+then
+pushd %{buildroot}/usr/lib32/pkgconfig
+for i in *.pc ; do mv $i 32$i ; done
+popd
+fi
+popd
 %make_install
 
 %files
@@ -88,6 +120,10 @@ rm -rf %{buildroot}
 /usr/include/X11/keysym.h
 /usr/include/X11/keysymdef.h
 /usr/lib64/pkgconfig/xproto.pc
+
+%files dev32
+%defattr(-,root,root,-)
+/usr/lib32/pkgconfig/32xproto.pc
 
 %files doc
 %defattr(-,root,root,-)
