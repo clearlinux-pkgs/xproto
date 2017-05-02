@@ -6,7 +6,7 @@
 #
 Name     : xproto
 Version  : 7.0.31
-Release  : 12
+Release  : 13
 URL      : http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.31.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.31.tar.gz
 Source99 : http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.31.tar.gz.sig
